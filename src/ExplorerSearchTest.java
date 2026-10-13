@@ -1,5 +1,8 @@
 import static org.junit.Assert.*;
 import org.junit.Test;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class ExplorerSearchTest {
     @Test
@@ -27,7 +30,7 @@ public class ExplorerSearchTest {
         int[][] island = { {1,1,1}, {1,1,1}, {1,1,0} };
         assertArrayEquals(new int[]{2, 2}, ExplorerSearch.explorerLocation(island));
     }
-    
+
     @Test
     public void explorerLocation_noStart() {
         int[][] island = { {1,2}, {3,1} };
@@ -36,5 +39,18 @@ public class ExplorerSearchTest {
         assertEquals("There's no explorer on the island", e.getMessage());
     }
 
+    // tests for isWalkable
+    @Test
+    public void isWalkable_land() {
+        assertTrue(ExplorerSearch.isWalkable(0));
+        assertTrue(ExplorerSearch.isWalkable(1));
+    }
 
+    @Test
+    public void isWalkable_blocked() {
+        assertFalse(ExplorerSearch.isWalkable(2));
+        assertFalse(ExplorerSearch.isWalkable(3));
+    }
+
+    
 }

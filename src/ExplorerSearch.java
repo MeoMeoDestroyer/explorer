@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ExplorerSearch {
 
@@ -34,7 +36,7 @@ public class ExplorerSearch {
         // I STRONGLY RECOMMEND testing some helpers you might make too
         return -1;
     }
-    
+
     // find the explorer starting location
     public static int[] explorerLocation(int[][] island) {
         for (int r = 0; r < island.length; r++) {
@@ -44,6 +46,12 @@ public class ExplorerSearch {
         }
         // if there is no explorer -> throw
         throw new IllegalArgumentException("There's no explorer on the island");
+    }
+
+    // true if the explorer can stand here start or field
+    // false if on water or mountain
+    public static boolean isWalkable(int value) {
+        return value == 0 || value == 1;
     }
 
 }
