@@ -54,4 +54,33 @@ public class ExplorerSearch {
         return value == 0 || value == 1;
     }
 
+    // only up down left right, no diagonal or off the edge
+    public static List<int[]> possibleMoves(int[][] island, int[] current) {
+        int curR = current[0];
+        int curC = current[1];
+        List<int[]> possible = new ArrayList<>();
+
+        // up
+        if (curR - 1 >= 0 && isWalkable(island[curR - 1][curC])) {
+            possible.add(new int[] {curR - 1, curC});
+        }
+
+        // down
+        if (curR + 1 < island.length && isWalkable(island[curR + 1][curC])) {
+            possible.add(new int[] {curR + 1, curC});
+        }
+
+        // left
+        if (curC - 1 >= 0 && isWalkable(island[curR][curC - 1])) {
+            possible.add(new int[] {curR, curC - 1});
+        }
+
+        // right
+        if (curC + 1 < island[curR].length && isWalkable(island[curR][curC + 1])) {
+            possible.add(new int[] {curR, curC + 1});
+        }
+
+        return possible;
+    }
+
 }
