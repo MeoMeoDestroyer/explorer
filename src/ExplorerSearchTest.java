@@ -145,6 +145,40 @@ public class ExplorerSearchTest {
         assertTrue(moveSet.contains("1,0"));
         assertTrue(moveSet.contains("0,1"));
     }
+    @Test
+    public void possibleMoves_allBlocked() {
+        int[][] island = {
+            {3, 2, 3},
+            {2, 0, 3},
+            {3, 2, 3}
+        };
+        assertTrue(ExplorerSearch.possibleMoves(island, new int[]{1, 1}).isEmpty());
+    }
+
+    @Test
+    public void possibleMoves_noDiagonal() {
+        int[][] island = {
+            {1, 2, 1},
+            {2, 0, 2},
+            {1, 2, 1}
+        };
+        assertTrue(ExplorerSearch.possibleMoves(island, new int[]{1, 1}).isEmpty());
+    }
+
+    @Test
+    public void possibleMoves_bottomRightCorner() {
+        int[][] island = {
+            {1, 1},
+            {1, 0}
+        };
+        List<int[]> moves = ExplorerSearch.possibleMoves(island, new int[]{1, 1});
+        Set<String> moveSet = toSet(moves);
+
+        assertEquals(2, moves.size());
+        // up left
+        assertTrue(moveSet.contains("0,1"));
+        assertTrue(moveSet.contains("1,0"));
+    }
 
 
 
