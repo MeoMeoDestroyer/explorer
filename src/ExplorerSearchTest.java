@@ -52,5 +52,109 @@ public class ExplorerSearchTest {
         assertFalse(ExplorerSearch.isWalkable(3));
     }
 
+    // tests for possibleMoves
+    @Test
+    public void possibleMoves_allDirectionsOpen() {
+        int[][] island = {
+            {1, 1, 1},
+            {1, 0, 1},
+            {1, 1, 1}
+        };
+        List<int[]> moves = ExplorerSearch.possibleMoves(island, new int[]{1, 1});
+        Set<String> moveSet = toSet(moves);
+
+        assertEquals(4, moves.size());
+
+        // up down left right
+        assertTrue(moveSet.contains("0,1"));
+        assertTrue(moveSet.contains("2,1"));
+        assertTrue(moveSet.contains("1,0"));
+        assertTrue(moveSet.contains("1,2"));
+    }
+
+    @Test
+    public void possibleMoves_blockedAboveByWater() {
+        int[][] island = {
+            {1, 2, 1},
+            {1, 0, 1},
+            {1, 1, 1}
+        };
+        Set<String> moveSet = toSet(ExplorerSearch.possibleMoves(island, new int[]{1, 1}));
+        // up got block, down left right
+        assertFalse(moveSet.contains("0,1"));
+        assertTrue(moveSet.contains("2,1"));
+        assertTrue(moveSet.contains("1,0"));
+        assertTrue(moveSet.contains("1,2"));
+    }
+    @Test
+    public void possibleMoves_blockedRightByMountain() {
+        int[][] island = {
+            {1, 1, 1},
+            {1, 0, 3},
+            {1, 1, 1}
+        };
+        Set<String> moveSet = toSet(ExplorerSearch.possibleMoves(island, new int[]{1, 1}));
+        // up down left, right got block
+        assertTrue(moveSet.contains("0,1")); 
+        assertTrue(moveSet.contains("2,1"));
+        assertTrue(moveSet.contains("1,0"));
+        assertFalse(moveSet.contains("1,2"));
+    }
+
+    @Test
+    public void possibleMoves_blockedBelowByMountain() {
+        int[][] island = {
+            {1, 1, 1},
+            {1, 0, 1},
+            {1, 3, 1}
+        };
+        Set<String> moveSet = toSet(ExplorerSearch.possibleMoves(island, new int[]{1, 1}));
+        // up, down got block, left right
+        assertTrue(moveSet.contains("0,1"));
+        assertFalse(moveSet.contains("2,1"));
+        assertTrue(moveSet.contains("1,0"));
+        assertTrue(moveSet.contains("1,2"));
+    }
+
+    @Test
+    public void possibleMoves_blockedLeftByWater() {
+        int[][] island = {
+            {1, 1, 1},
+            {2, 0, 1},
+            {1, 1, 1}
+        };
+        Set<String> moveSet = toSet(ExplorerSearch.possibleMoves(island, new int[]{1, 1}));
+        // left got block, up down right
+        assertTrue(moveSet.contains("0,1"));
+        assertTrue(moveSet.contains("2,1"));
+        assertFalse(moveSet.contains("1,0"));
+        assertTrue(moveSet.contains("1,2"));
+    }
+
+    @Test
+    public void possibleMoves_topLeftCorner() {
+        int[][] island = {
+            {0, 1},
+            {1, 1}
+        };
+        List<int[]> moves = ExplorerSearch.possibleMoves(island, new int[]{0, 0});
+        Set<String> moveSet = toSet(moves);
+
+        assertEquals(2, moves.size());
+        // down, right
+        assertTrue(moveSet.contains("1,0"));
+        assertTrue(moveSet.contains("0,1"));
+    }
+
+
+
+
+        private Set<String> toSet(List<int[]> list) {
+        Set<String> set = new HashSet<>();
+        for (int[] arr : list) {
+            set.add(arr[0] + "," + arr[1]);
+        }
+        return set;
+    }
     
 }
