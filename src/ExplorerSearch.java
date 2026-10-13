@@ -45,7 +45,7 @@ public class ExplorerSearch {
         if (visited[curR][curC]) return 0;
         visited[curR][curC] = true;
 
-        int count = 1; // this square
+        int count = 1;
         for (int[] move : possibleMoves(island, current)) {
             count += reachableArea(island, move, visited);
         }

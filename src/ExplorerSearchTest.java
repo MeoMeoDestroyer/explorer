@@ -17,6 +17,23 @@ public class ExplorerSearchTest {
         int actual = ExplorerSearch.reachableArea(island);
         assertEquals(14, actual);
     }
+    @Test
+    public void reachableArea_onlyStart() {
+        int[][] island = { {0} };
+        assertEquals(1, ExplorerSearch.reachableArea(island));
+    }
+
+    @Test
+    public void reachableArea_trapped() {
+        int[][] island = {
+            {1, 2, 1},
+            {3, 0, 3},
+            {1, 2, 1}
+        };
+        assertEquals(1, ExplorerSearch.reachableArea(island));
+    }
+
+
 
     // test for exploreer location
     @Test
