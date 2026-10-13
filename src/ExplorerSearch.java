@@ -31,10 +31,25 @@ public class ExplorerSearch {
      * @return the number of spaces the explorer can reach
      */
     public static int reachableArea(int[][] island) {
-        // Implement your method here!
-        // Please also make more test cases
-        // I STRONGLY RECOMMEND testing some helpers you might make too
-        return -1;
+        int[] start = explorerLocation(island);
+        boolean[][] visited = new boolean[island.length][island[0].length];
+        return reachableArea(island, start, visited);
+    }
+
+    // counts this square plus every square reachable from it
+    private static int reachableArea(int[][] island, int[] current, boolean[][] visited) {
+        int curR = current[0];
+        int curC = current[1];
+
+        // already counted, don't count again
+        if (visited[curR][curC]) return 0;
+        visited[curR][curC] = true;
+
+        int count = 1; // this square
+        for (int[] move : possibleMoves(island, current)) {
+            count += reachableArea(island, move, visited);
+        }
+        return count;
     }
 
     // find the explorer starting location
