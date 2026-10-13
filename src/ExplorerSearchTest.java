@@ -15,6 +15,26 @@ public class ExplorerSearchTest {
         assertEquals(14, actual);
     }
 
-    // Add more tests here!
-    // Come up with varied cases
+    // test for exploreer location
+    @Test
+    public void explorerLocation_middle() {
+        int[][] island = { {1,1,1}, {1,0,1}, {1,1,1} };
+        assertArrayEquals(new int[]{1, 1}, ExplorerSearch.explorerLocation(island));
+    }
+
+    @Test
+    public void explorerLocation_corner() {
+        int[][] island = { {1,1,1}, {1,1,1}, {1,1,0} };
+        assertArrayEquals(new int[]{2, 2}, ExplorerSearch.explorerLocation(island));
+    }
+    
+    @Test
+    public void explorerLocation_noStart() {
+        int[][] island = { {1,2}, {3,1} };
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+                () -> ExplorerSearch.explorerLocation(island));
+        assertEquals("There's no explorer on the island", e.getMessage());
+    }
+
+
 }
