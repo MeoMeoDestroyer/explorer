@@ -33,6 +33,26 @@ public class ExplorerSearchTest {
         assertEquals(1, ExplorerSearch.reachableArea(island));
     }
 
+    @Test
+    public void reachableArea_allLand() {
+        int[][] island = {
+            {1, 1, 1, 1},
+            {1, 1, 0, 1},
+            {1, 1, 1, 1}
+        };
+        assertEquals(12, ExplorerSearch.reachableArea(island));
+    }
+
+    @Test
+    public void reachableArea_noDiagonal() {
+        int[][] island = {
+            {1, 2, 1},
+            {2, 0, 2},
+            {1, 2, 1}
+        };
+        assertEquals(1, ExplorerSearch.reachableArea(island));
+    }
+
 
 
     // test for exploreer location
